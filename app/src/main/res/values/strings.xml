@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Joyful Chatroom</string>
+    <string name="google_logo">Click the button and Start chat</string>
+    <string name="todo">TODO</string>
+    <string name="chatTitle">Global Chat Room</string>
+    <string name="messageHint">Start Messaging</string>
+</resources>

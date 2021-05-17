@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1060468318118",
+    "project_id": "joyful-chatroom",
+    "storage_bucket": "joyful-chatroom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060468318118:android:e2c5e4a7d54fc6d0ccb967",
+        "android_client_info": {
+          "package_name": "com.ilutoo.joyfulchatroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060468318118-ohotqj5u7ms2ldaegsb0t54ncr0j0r0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARK4MHUK3Eut4m9W2hi30Sy4axCAG8jns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060468318118-ohotqj5u7ms2ldaegsb0t54ncr0j0r0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
