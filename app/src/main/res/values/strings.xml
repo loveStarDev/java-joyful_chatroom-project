@@ -4,4 +4,9 @@
     <string name="todo">TODO</string>
     <string name="chatTitle">Global Chat Room</string>
     <string name="messageHint">Start Messaging</string>
+    <string name="CameraDecription">사진</string>
+    <string name="SendDescription">전송</string>
+    <string name="default_notification_channel_id">1</string>
+    <string name="Chatroom_Name">Joyful Chat Room</string>
+    <string name="Messagebox_hint">Start Messaging</string>
 </resources>

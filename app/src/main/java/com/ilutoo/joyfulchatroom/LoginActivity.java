@@ -1,12 +1,16 @@
 package com.ilutoo.joyfulchatroom;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,27 +34,21 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
         dialog = new ProgressDialog(this);
-
-        // Initialize Firebase Auth
+        setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-
-        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
-    public void startlogin(View view) {
+    public void startLogin(View view) {
         dialog.setMessage("Loading...");
         dialog.setCancelable(false);
         dialog.show();
-
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -58,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -68,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 dialog.dismiss();
-                // Google Sign In failed, update UI appropriately
+                Log.d("TAG", "onActivityResult: "+e);
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -85,17 +82,18 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            dialog.dismiss();
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
     }
 
     private void updateUI(FirebaseUser user) {
         dialog.dismiss();
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this,MainActivity.class));
         finish();
     }
 }
