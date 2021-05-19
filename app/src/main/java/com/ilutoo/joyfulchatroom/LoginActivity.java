@@ -24,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     GoogleSignInClient mGoogleSignInClient;
@@ -34,8 +36,19 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 로그인 진행바 생성 & 로그인 레이아웃 설정
+        // (Create progressbar for Login and Set activity_login_layout with this Activity)
         dialog = new ProgressDialog(this);
         setContentView(R.layout.activity_login);
+    }
+
+    public void signIn(View view) {
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(false);
+        dialog.show();
+        // firebase 인증을 위한 환경설정
+        // (Configure Google Sign In)
         mAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -43,12 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
-    }
-
-    public void startLogin(View view) {
-        dialog.setMessage("Loading...");
-        dialog.setCancelable(false);
-        dialog.show();
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -62,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
+                firebaseAuthWithGoogle(Objects.requireNonNull(account).getIdToken());
             } catch (ApiException e) {
                 dialog.dismiss();
                 Log.d("TAG", "onActivityResult: "+e);

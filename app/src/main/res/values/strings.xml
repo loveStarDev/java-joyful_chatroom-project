@@ -9,4 +9,7 @@
     <string name="default_notification_channel_id">1</string>
     <string name="Chatroom_Name">Joyful Chat Room</string>
     <string name="Messagebox_hint">Start Messaging</string>
+    <string name="this_is_a_dummy_text_message">this is a dummy text message</string>
+    <string name="sendImage_button">sendImage_button</string>
+    <string name="cameraImage_button">cameraImage_button</string>
 </resources>

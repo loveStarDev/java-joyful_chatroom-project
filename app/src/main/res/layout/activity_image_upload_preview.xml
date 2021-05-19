@@ -21,7 +21,8 @@
         app:elevation="0dp"
         app:fabSize="mini"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todo"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -37,7 +38,7 @@
                 android:id="@+id/upload_image_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                />
+                android:contentDescription="@string/todo" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -58,15 +59,16 @@
             <EditText
                 android:id="@+id/chat_box"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Start Messaging"
+                android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:padding="15dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/Messagebox_hint"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
 
 
@@ -82,7 +84,8 @@
                 android:src="@drawable/ic_baseline_send_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/todo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

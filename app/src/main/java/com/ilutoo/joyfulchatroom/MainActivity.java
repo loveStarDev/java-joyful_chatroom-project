@@ -37,6 +37,7 @@ import com.ilutoo.joyfulchatroom.model.ChatModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static android.service.controls.ControlsProviderService.TAG;
 import static com.ilutoo.joyfulchatroom.cords.FirebaseCords.MAIN_CHAT_DATABASE;
@@ -44,10 +45,10 @@ import static com.ilutoo.joyfulchatroom.cords.FirebaseCords.mAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     public void onStart() {
         super.onStart();
+        // 시작 시, 로그인된 유저는 바로 MainActivity_layout 을 뿌린다. 아니라면 로그인 화면으로 시작한다.
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser==null){
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch(item.getItemId()){
             case R.id.logout:
                 mAuth.signOut();
                 startActivity(new Intent(this,LoginActivity.class));
@@ -94,13 +95,12 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         chat_box = findViewById(R.id.chat_box);
         chat_list = findViewById(R.id.chat_list);
 
         initChatList();
-
     }
 
     private void initChatList() {
@@ -115,14 +115,12 @@ public class MainActivity extends AppCompatActivity {
         chatAdapter = new ChatAdapter(option);
         chat_list.setAdapter(chatAdapter);
         chatAdapter.startListening();
-
     }
 
     public void addMessage(View view) {
         String message = chat_box.getText().toString();
         FirebaseUser user = mAuth.getCurrentUser();
         if(!TextUtils.isEmpty(message)){
-
             /*Generate messageID using the current date. */
             Date today = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -155,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
                         SendPushNotification sendPushNotification = new SendPushNotification(MainActivity.this);
                         sendPushNotification.startPush(user.getDisplayName(),message,"global_chat");
                         chat_box.setText("");
-                        chat_list.scrollToPosition(chatAdapter.getItemCount() - 1);
                     }else {
                         Log.w(TAG, "Fetching FCM registration token failed", task.getException());
                         Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -163,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        chat_list.smoothScrollToPosition(0);
     }
 
     public void OpenExplorer(View view) {
@@ -170,12 +168,10 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED){
             ChoseImage();
         }else{
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},20);
-            }else {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 Toast.makeText(this, "Storage permission needed", Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},20);
             }
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},20);
         }
     }
 

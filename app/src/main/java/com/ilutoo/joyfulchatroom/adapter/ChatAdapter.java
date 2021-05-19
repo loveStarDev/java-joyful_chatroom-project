@@ -49,12 +49,10 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
         return new ChatViewHolder(v);
     }
 
-    class ChatViewHolder extends RecyclerView.ViewHolder{
-
+    static class ChatViewHolder extends RecyclerView.ViewHolder{
         TextView message;
         CircleImageView user_image;
         ImageView chat_image;
-
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.message);
