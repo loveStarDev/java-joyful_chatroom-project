@@ -12,4 +12,5 @@
     <string name="this_is_a_dummy_text_message">this is a dummy text message</string>
     <string name="sendImage_button">sendImage_button</string>
     <string name="cameraImage_button">cameraImage_button</string>
+    <string name="user_name">name</string>
 </resources>

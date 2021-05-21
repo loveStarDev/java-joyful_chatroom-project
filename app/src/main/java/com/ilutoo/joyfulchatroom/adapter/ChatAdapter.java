@@ -20,7 +20,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter.ChatViewHolder> {
 
-
     public ChatAdapter(@NonNull FirestoreRecyclerOptions<ChatModel> options) {
         super(options);
     }
@@ -28,6 +27,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
     @Override
     protected void onBindViewHolder(@NonNull ChatViewHolder chatViewHolder, int i, @NonNull ChatModel chatModel) {
         chatViewHolder.message.setText(chatModel.getMessage());
+        chatViewHolder.user_name.setText(chatModel.getUser_name());
         Glide.with(chatViewHolder.user_image.getContext().getApplicationContext())
                 .load(chatModel.getUser_image_url())
                 .into(chatViewHolder.user_image);
@@ -51,10 +51,12 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
 
     static class ChatViewHolder extends RecyclerView.ViewHolder{
         TextView message;
+        TextView user_name;
         CircleImageView user_image;
         ImageView chat_image;
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
+            user_name = itemView.findViewById(R.id.user_name);
             message = itemView.findViewById(R.id.message);
             user_image = itemView.findViewById(R.id.user_image);
             chat_image = itemView.findViewById(R.id.chat_image);

@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         chat_list.setHasFixedSize(true);
         chat_list.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true));
 
-
         Query query = MAIN_CHAT_DATABASE.orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<ChatModel> option  = new FirestoreRecyclerOptions.Builder<ChatModel>()
                 .setQuery(query,ChatModel.class)
