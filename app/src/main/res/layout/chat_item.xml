@@ -65,4 +65,14 @@
             app:layout_constraintTop_toTopOf="parent" />
     </com.github.captain_miao.optroundcardview.OptRoundCardView>
 
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/optRoundCardView"
+        app:layout_constraintBottom_toBottomOf="@+id/optRoundCardView"
+        android:text="@string/timestamp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

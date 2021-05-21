@@ -7,10 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -81,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     EditText chat_box;
     RecyclerView chat_list;
+    ImageButton send_button;
 
     ChatAdapter chatAdapter;
 
@@ -99,6 +104,22 @@ public class MainActivity extends AppCompatActivity {
 
         chat_box = findViewById(R.id.chat_box);
         chat_list = findViewById(R.id.chat_list);
+        send_button = findViewById(R.id.sendButton);
+
+        chat_box.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                switch (actionId) {
+                    case EditorInfo.IME_ACTION_SEND:
+                        send_button.performClick();
+                        break;
+                    case EditorInfo.IME_ACTION_NONE:
+                        chat_box.setText(chat_box.getText().append("\n"));
+                        break;
+                }
+                return true;
+            }
+        });
 
         initChatList();
     }

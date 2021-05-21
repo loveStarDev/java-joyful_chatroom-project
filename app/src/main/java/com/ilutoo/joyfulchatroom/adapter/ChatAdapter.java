@@ -15,6 +15,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.ilutoo.joyfulchatroom.R;
 import com.ilutoo.joyfulchatroom.model.ChatModel;
 
+import java.text.SimpleDateFormat;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -26,8 +28,12 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
 
     @Override
     protected void onBindViewHolder(@NonNull ChatViewHolder chatViewHolder, int i, @NonNull ChatModel chatModel) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        String timestamp = format.format(chatModel.getTimestamp().getTime());
+
         chatViewHolder.message.setText(chatModel.getMessage());
         chatViewHolder.user_name.setText(chatModel.getUser_name());
+        chatViewHolder.send_time.setText(timestamp);
         Glide.with(chatViewHolder.user_image.getContext().getApplicationContext())
                 .load(chatModel.getUser_image_url())
                 .into(chatViewHolder.user_image);
@@ -52,6 +58,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
     static class ChatViewHolder extends RecyclerView.ViewHolder{
         TextView message;
         TextView user_name;
+        TextView send_time;
         CircleImageView user_image;
         ImageView chat_image;
         public ChatViewHolder(@NonNull View itemView) {
@@ -60,6 +67,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
             message = itemView.findViewById(R.id.message);
             user_image = itemView.findViewById(R.id.user_image);
             chat_image = itemView.findViewById(R.id.chat_image);
+            send_time = itemView.findViewById(R.id.timestamp);
         }
     }
 }

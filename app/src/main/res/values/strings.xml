@@ -13,4 +13,5 @@
     <string name="sendImage_button">sendImage_button</string>
     <string name="cameraImage_button">cameraImage_button</string>
     <string name="user_name">name</string>
+    <string name="timestamp">23:59</string>
 </resources>
