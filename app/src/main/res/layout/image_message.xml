@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/another_user"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/another_user"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -15,31 +16,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
     <ImageView
-        android:id="@+id/chat_image"
+        android:id="@+id/messageImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"
         android:adjustViewBounds="true"
         android:maxWidth="300dp"
         android:maxHeight="200dp"
-        android:layout_marginTop="23dp"
+        android:padding="10dp"
         android:scaleType="fitCenter"
-        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/user_image"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_imageMessage"
         tools:srcCompat="@android:drawable/ic_menu_gallery"
-
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/user_image"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textAlignment="textEnd"
-        android:layout_marginEnd="5dp"
-        android:text="@string/user_name"/>
+        android:contentDescription="@string/todo"
+        android:visibility="gone"/>
 
     <com.github.captain_miao.optroundcardview.OptRoundCardView
         android:id="@+id/optRoundCardView"
@@ -53,7 +42,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/user_image"
-        app:layout_constraintTop_toBottomOf="@+id/chat_image"
+        app:layout_constraintTop_toBottomOf="@+id/messageImageView"
         app:optRoundCardCornerRadius="15dp"
         app:optRoundCardElevation="5dp">
         <TextView
@@ -73,6 +62,16 @@
     </com.github.captain_miao.optroundcardview.OptRoundCardView>
 
     <TextView
+        android:id="@+id/user_name_imageMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/user_image"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="textStart"
+        android:layout_marginEnd="5dp"
+        android:text="@string/user_name"/>
+
+    <TextView
         android:id="@+id/timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,3 +82,5 @@
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

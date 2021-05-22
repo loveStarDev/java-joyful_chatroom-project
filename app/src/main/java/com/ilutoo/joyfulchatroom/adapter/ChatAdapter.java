@@ -16,11 +16,16 @@ import com.ilutoo.joyfulchatroom.R;
 import com.ilutoo.joyfulchatroom.model.ChatModel;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter.ChatViewHolder> {
+
+    static public final int VIEW_TYPE_TEXT = 0;
+    static public final int VIEW_TYPE_IMAGE = 1;
+
 
     public ChatAdapter(@NonNull FirestoreRecyclerOptions<ChatModel> options) {
         super(options);
@@ -28,9 +33,8 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
 
     @Override
     protected void onBindViewHolder(@NonNull ChatViewHolder chatViewHolder, int i, @NonNull ChatModel chatModel) {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.KOREA);
         String timestamp = format.format(chatModel.getTimestamp().getTime());
-
         chatViewHolder.message.setText(chatModel.getMessage());
         chatViewHolder.user_name.setText(chatModel.getUser_name());
         chatViewHolder.send_time.setText(timestamp);
@@ -51,8 +55,13 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
     @NonNull
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item,parent,false);
-        return new ChatViewHolder(v);
+        View view;
+        if (viewType == VIEW_TYPE_TEXT) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_message, parent, false);
+        }
+        return new ChatViewHolder(view);
     }
 
     static class ChatViewHolder extends RecyclerView.ViewHolder{
