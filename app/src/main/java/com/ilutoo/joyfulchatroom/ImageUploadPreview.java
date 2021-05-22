@@ -88,7 +88,7 @@ public class ImageUploadPreview extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String message = chat_box.getText().toString();
         if(TextUtils.isEmpty(message)){
-            message = "\uD83D\uDCF7";
+            message = "";
         }
 
         /*Getting user image from Google account*/
