@@ -53,7 +53,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <EditText
                 android:id="@+id/chat_box"
                 android:layout_width="0dp"
@@ -67,7 +66,6 @@
                 android:inputType="text"
                 android:importantForAutofill="no"
                 android:imeOptions="actionSend"/>
-
             <ImageButton
                 android:id="@+id/cameraButton"
                 android:layout_width="40dp"
@@ -82,7 +80,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:contentDescription="@string/cameraImage_button" />
-
             <ImageButton
                 android:id="@+id/sendButton"
                 android:layout_width="40dp"
@@ -96,8 +93,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/sendImage_button" />
-
+                android:contentDescription="@string/sendImage_button"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
