@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SplashActivity"
     android:gravity="center"
-    android:background="@color/real_yellow">
+    android:background="#400000">
 
     <ImageView
         android:src="@drawable/loading_icon"
