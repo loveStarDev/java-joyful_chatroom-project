@@ -15,30 +15,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JoyfulChatroom">
-        <activity android:name=".SplashActivity"></activity>
-        <activity android:name=".ImageUploadPreview" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".StartPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ImageUploadPreview" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity">
+
         </activity> <!-- 라이브러리 추가 항목 -->
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
 
         <service
-            android:name=".fcm.MyFirebaseInstanceIdService"
-            android:exported="false">
+            android:name=".fcm.MyFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".fcm.MyFirebaseMessagingService"
-            android:exported="false">
+            android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

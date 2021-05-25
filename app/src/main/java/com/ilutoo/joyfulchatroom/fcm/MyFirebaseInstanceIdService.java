@@ -1,19 +1,17 @@
 package com.ilutoo.joyfulchatroom.fcm;
 
-import android.util.Log;
-
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
-
-import static android.service.controls.ControlsProviderService.TAG;
 
 public class MyFirebaseInstanceIdService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String token) {
-        Log.d(TAG, "Refreshed token: " + token);
-        sendRegistrationToServer(token);
+        Task<String> refreshToken = FirebaseMessaging.getInstance().getToken();
+        sendRegistrationToServer(refreshToken);
     }
 
-    private void sendRegistrationToServer(String refreshToken) {
+    private void sendRegistrationToServer(Task<String> refreshToken) {
     }
 }

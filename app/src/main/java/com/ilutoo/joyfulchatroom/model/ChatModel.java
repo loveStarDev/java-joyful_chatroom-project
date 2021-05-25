@@ -1,7 +1,5 @@
 package com.ilutoo.joyfulchatroom.model;
 
-import java.util.Date;
-
 public class ChatModel {
 
     String message;
@@ -9,13 +7,13 @@ public class ChatModel {
     String messageID;
     String user_image_url;
     String chat_image;
-    Date timestamp;
+    long timestamp;
 
 
     public ChatModel() {
     }
 
-    public ChatModel(String message, String user_name, String messageID, String user_image_url, String chat_image, Date timestamp) {
+    public ChatModel(String message, String user_name, String messageID, String user_image_url, String chat_image, long timestamp) {
         this.message = message;
         this.user_name = user_name;
         this.messageID = messageID;
@@ -64,11 +62,11 @@ public class ChatModel {
         this.chat_image = chat_image;
     }
 
-    public Date getTimestamp() {
+    public Number getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }

@@ -7,20 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +26,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.ilutoo.joyfulchatroom.adapter.ChatAdapter;
@@ -41,17 +35,16 @@ import com.ilutoo.joyfulchatroom.model.ChatModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Objects;
 
-import static android.service.controls.ControlsProviderService.TAG;
 import static com.ilutoo.joyfulchatroom.cords.FirebaseCords.MAIN_CHAT_DATABASE;
 import static com.ilutoo.joyfulchatroom.cords.FirebaseCords.mAuth;
 
 public class MainActivity extends AppCompatActivity {
+
+
     @Override
     public void onStart() {
         super.onStart();
-        // 시작 시, 로그인된 유저는 바로 MainActivity_layout 을 뿌린다. 아니라면 로그인 화면으로 시작한다.
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser==null){
@@ -69,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()){
             case R.id.logout:
                 mAuth.signOut();
                 startActivity(new Intent(this,LoginActivity.class));
@@ -79,64 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    private FirebaseRemoteConfig mFirebaseRemoteConfig;
-//
-//    private void remoteConfig()
-//    {
-//        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-//
-//        //디버깅 테스트 할때 0 시간 , 배포시 지우기
-//        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-//                .setMinimumFetchIntervalInSeconds(0) //시간
-//                .build();
-//        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
-//
-//        //서버에 매칭되는 값이 없을때 참조
-//        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
-//        mFirebaseRemoteConfig.fetchAndActivate().addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Boolean> task) {
-//                if (task.isSuccessful()) {
-//                    boolean updated = task.getResult();
-//                    Toast.makeText(MainActivity.this, "Fetch and activate succeeded",
-//                            Toast.LENGTH_SHORT).show();
-//
-//                } else {
-//                    Toast.makeText(MainActivity.this, "Fetch failed",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//                displayWelcomeMessage();
-//            }
-//        });
-//    }
-//
-//    private void displayWelcomeMessage() {
-//        //btnOut, btnRevoke, btnImg,btnUpload, btnUploadedImage;
-//        String btnColor = mFirebaseRemoteConfig.getString("btnColor");
-//        boolean isServerChk = mFirebaseRemoteConfig.getBoolean("is_server_chk");
-//        String msg = mFirebaseRemoteConfig.getString("welcome_message");
-//
-//        btnUploadedImage.setBackgroundColor(Color.parseColor(btnColor));
-//        btnUpload.setBackgroundColor(Color.parseColor(btnColor));
-//
-//        if(isServerChk)
-//        {
-//            AlertDialog.Builder albuilder = new AlertDialog.Builder(this);
-//            albuilder.setMessage(msg).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    MainActivity.this.finish();
-//                }
-//            });
-//            albuilder.show();
-//        }
-//    }
-
-
-    Toolbar toolbar;
     EditText chat_box;
     RecyclerView chat_list;
-    ImageButton send_button;
 
     ChatAdapter chatAdapter;
 
@@ -149,35 +86,18 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseMessaging.getInstance().subscribeToTopic("global_chat");
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         chat_box = findViewById(R.id.chat_box);
         chat_list = findViewById(R.id.chat_list);
-        send_button = findViewById(R.id.sendButton);
-
-        chat_box.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                switch (actionId) {
-                    case EditorInfo.IME_ACTION_SEND:
-                        send_button.performClick();
-                        break;
-                    case EditorInfo.IME_ACTION_NONE:
-                        chat_box.setText(chat_box.getText().append("\n"));
-                        break;
-                }
-                return true;
-            }
-        });
 
         initChatList();
+
     }
 
     private void initChatList() {
         chat_list.setHasFixedSize(true);
         chat_list.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true));
+
 
         Query query = MAIN_CHAT_DATABASE.orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<ChatModel> option  = new FirestoreRecyclerOptions.Builder<ChatModel>()
@@ -186,12 +106,14 @@ public class MainActivity extends AppCompatActivity {
         chatAdapter = new ChatAdapter(option);
         chat_list.setAdapter(chatAdapter);
         chatAdapter.startListening();
+
     }
 
     public void addMessage(View view) {
         String message = chat_box.getText().toString();
         FirebaseUser user = mAuth.getCurrentUser();
         if(!TextUtils.isEmpty(message)){
+
             /*Generate messageID using the current date. */
             Date today = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -210,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             HashMap<String,Object> messageObj = new HashMap<>();
             messageObj.put("message",message);
             messageObj.put("user_name",user.getDisplayName());
-            messageObj.put("timestamp", FieldValue.serverTimestamp());
+            messageObj.put("timestamp", new Date().getTime());
             messageObj.put("messageID",messageID);
             messageObj.put("chat_image","");
             messageObj.put("user_image_url",user_image_url);
@@ -225,13 +147,11 @@ public class MainActivity extends AppCompatActivity {
                         sendPushNotification.startPush(user.getDisplayName(),message,"global_chat");
                         chat_box.setText("");
                     }else {
-                        Log.w(TAG, "Fetching FCM registration token failed", task.getException());
                         Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
-        chat_list.smoothScrollToPosition(0);
     }
 
     public void OpenExplorer(View view) {
@@ -239,10 +159,12 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED){
             ChoseImage();
         }else{
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},20);
+            }else {
                 Toast.makeText(this, "Storage permission needed", Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},20);
             }
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},20);
         }
     }
 
@@ -280,5 +202,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, result.getError().getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void Finish(View view) {
+        long currentTime  = new Date().getTime();
+        new SaveState(this).setClickTime(currentTime);
+        finish();
     }
 }
