@@ -3,7 +3,6 @@ package com.ilutoo.joyfulchatroom;
 import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -86,9 +85,6 @@ public class ImageUploadPreview extends AppCompatActivity {
     private void addMessageToTheDatabase(Uri uri, String messageID) {
         FirebaseUser user = mAuth.getCurrentUser();
         String message = chat_box.getText().toString();
-        if(TextUtils.isEmpty(message)){
-            message = "\uD83D\uDCF7";
-        }
 
         /*Getting user image from Google account*/
         String user_image_url = "";

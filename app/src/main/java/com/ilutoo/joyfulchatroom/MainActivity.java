@@ -86,12 +86,10 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseMessaging.getInstance().subscribeToTopic("global_chat");
 
-
         chat_box = findViewById(R.id.chat_box);
         chat_list = findViewById(R.id.chat_list);
 
         initChatList();
-
     }
 
     private void initChatList() {
@@ -208,5 +206,8 @@ public class MainActivity extends AppCompatActivity {
         long currentTime  = new Date().getTime();
         new SaveState(this).setClickTime(currentTime);
         finish();
+    }
+
+    public void onClick_ImageView(View view) {
     }
 }

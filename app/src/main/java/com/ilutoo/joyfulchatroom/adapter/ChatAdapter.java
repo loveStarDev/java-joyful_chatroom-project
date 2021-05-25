@@ -28,13 +28,9 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatModel, ChatAdapter
     protected void onBindViewHolder(@NonNull ChatViewHolder chatViewHolder, int i, @NonNull ChatModel chatModel) {
         chatViewHolder.message.setText(chatModel.getMessage());
         chatViewHolder.user_name.setText(chatModel.getUser_name());
+        String messageTime = chatModel.getMessageID();
+        chatViewHolder.timestamp.setText(messageTime.substring(messageTime.length()-8,messageTime.length()-3));
 
-        try {
-            System.out.print("chatModel.getTimestamp().toString() : " + chatModel.getTimestamp().toString());
-            chatViewHolder.timestamp.setText(chatModel.getTimestamp().toString());
-        }catch (Exception e){
-            System.out.print("Exception : " + e.getMessage());
-        }
 
         Glide.with(chatViewHolder.user_image.getContext().getApplicationContext())
                 .load(chatModel.getUser_image_url())
