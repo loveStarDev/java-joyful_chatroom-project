@@ -4,24 +4,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/login_background"
+    android:orientation="vertical">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tint="@null"
-            android:onClick="startLogin"
-            app:backgroundTint="@android:color/white"
-            android:clickable="true"
-            app:srcCompat="@drawable/google_icon" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:textColor="#212121"
-            android:text="Click the button and start chat"/>
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_expression"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="60sp"
+                    android:textStyle="bold"
+                    android:textColor="#323232"
+                    android:fontFamily="@font/maplestory_bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/maplestory_light"
+                    android:textColor="#323232"
+                    android:text="@string/sign_in_to_your_account"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp">
+                        <EditText
+                            android:id="@+id/account"
+                            android:layout_width="250sp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:drawableStart="@drawable/account_left_icon"
+                            android:hint="@string/hint_accountid"/>
+
+                        <EditText
+                            android:id="@+id/password"
+                            android:layout_width="250sp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/account"
+                            android:drawableStart="@drawable/password_left_icon"
+                            android:hint="@string/hint_password"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/forgot_your_accounts"
+                            android:layout_marginEnd="20dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            app:layout_constraintTop_toBottomOf="@+id/password"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="right|center_vertical"
+            android:layout_weight="1"
+            tools:ignore="RtlHardcoded">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_in"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:textColor="@color/real_black"
+
+                    android:textSize="25sp"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginEnd="20dp"
+                    android:padding="0dp"
+                    android:src="@drawable/next_button"
+                    android:contentDescription="@string/todo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:layout_marginBottom="30dp">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:tint="@null"
+                    android:onClick="startLogin"
+                    app:backgroundTint="@android:color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:srcCompat="@drawable/google_icon"
+                    android:contentDescription="@string/todo"/>
+        </LinearLayout>
 </LinearLayout>
