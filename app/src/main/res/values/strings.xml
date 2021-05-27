@@ -22,4 +22,5 @@
     <string name="forgot_your_accounts">forgot your accounts?</string>
     <string name="hint_password">Password</string>
     <string name="hint_accountid">AccountID</string>
+    <string name="chatroom_title">CHATROOM</string>
 </resources>

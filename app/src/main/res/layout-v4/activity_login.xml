@@ -111,5 +111,7 @@
                     android:focusable="true"
                     app:srcCompat="@drawable/google_icon"
                     android:contentDescription="@string/todo"/>
+
+
         </LinearLayout>
 </LinearLayout>

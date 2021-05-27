@@ -53,11 +53,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/lato_bold"
-                android:text="CHATROOM"
+                android:text="@string/chatroom_title"
                 android:textColor="#323232"
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_menu"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onClick_menu"
+                android:padding="0sp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/menu_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.github.captain_miao.optroundcardview.OptRoundCardView>
@@ -83,7 +99,7 @@
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/optRoundCardView2" />
+        app:layout_constraintTop_toBottomOf="@+id/optRoundCardView2"/>
 
     <com.github.captain_miao.optroundcardview.OptRoundCardView
         android:id="@+id/cardView"

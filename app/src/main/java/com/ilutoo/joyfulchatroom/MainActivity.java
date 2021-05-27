@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -209,5 +210,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_ImageView(View view) {
+    }
+
+    public void onClick_menu(View view) {
+        PopupMenu popupMenu = new PopupMenu(getApplicationContext(), view);
+        getMenuInflater().inflate(R.menu.chat_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                onOptionsItemSelected(item);
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 }
